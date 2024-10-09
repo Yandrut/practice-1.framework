@@ -17,7 +17,6 @@ public class DriverFactory {
 
         if (driverName.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
             options.addArguments("start-maximized");
             options.addArguments("--disable-notifications");
             options.addArguments("--disable-popup-blocking");

@@ -1,4 +1,4 @@
-package selenium;
+package org.yandrut.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,8 +12,9 @@ public class DriverFactory {
 
     private DriverFactory() {}
 
-    public static WebDriver getDriver(String driverName) {
+    public static WebDriver getDriver() {
         WebDriver driver;
+        String driverName = System.getProperty("browser", "chrome");
 
         if (driverName.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();

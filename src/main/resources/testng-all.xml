@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Smoke Tests">
-    <test name="Smoke">
+<suite name="All tests">
+    <test name="All">
         <classes>
             <class name="org.yandrut.SmokeTests">
-                <methods>
-                    <include name=""/>
-                    <include name=""/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Other">
-        <classes>
-            <class name="org.yandrut.BaseTest">
                 <methods>
                     <include name=""/>
                     <include name=""/>

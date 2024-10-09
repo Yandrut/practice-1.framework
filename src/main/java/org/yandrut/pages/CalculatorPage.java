@@ -2,7 +2,7 @@ package org.yandrut.pages;
 
 import org.openqa.selenium.*;
 
-public class CalculatorPage {
+public class CalculatorPage extends AbstractPage {
     private final WebDriver driver;
 
     private final By ADD_TO_ESTIMATE = By.xpath("//button[@data-idom-class='xhASFc']");
@@ -21,43 +21,51 @@ public class CalculatorPage {
     private final By ESTIMATED_PRICE = By.xpath("//div[text()='Estimated cost']/following::label");
 
     public CalculatorPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
-    public void navigateToUrl(String url) {
+    public CalculatorPage navigateToUrl(String url) {
         driver.get(url);
+        return this;
     }
 
-    public void clickOnComputeEngine() {
+    public CalculatorPage clickOnComputeEngine() {
         driver.findElement(ADD_TO_ESTIMATE).click();
         driver.findElement(COMPUTE_ENGINE).click();
+        return this;
     }
 
-    public void setNumberOfInstances(int numberOfInstances) {
+    public CalculatorPage setNumberOfInstances(String numberOfInstances) {
         WebElement inputField = driver.findElement(NUMBER_OF_INSTANCES);
         inputField.clear();
-        inputField.sendKeys(String.valueOf(numberOfInstances));
+        inputField.sendKeys(numberOfInstances);
+        return this;
     }
 
-    public void setMachineType(String machineType) {
+    public CalculatorPage setMachineType(String machineType) {
         driver.findElement(MACHINE_TYPE).click();
         selectFromDropdownList(MACHINE_TYPES_LIST, machineType);
+        return this;
     }
 
-    public void addGpuModel(String gpuModel) {
+    public CalculatorPage addGpuModel(String gpuModel) {
         driver.findElement(ADD_GPU).click();
         driver.findElement(GPU_MODEL_DROPDOWN).click();
         selectFromDropdownList(GPU_NUMBER_LIST, gpuModel);
+        return this;
     }
 
-    public void setLocalSSD(String ssdName) {
+    public CalculatorPage setLocalSSD(String ssdName) {
         driver.findElement(LOCAL_SSD_DROPDOWN).click();
         selectFromDropdownList(LOCAL_SSD_LIST, ssdName);
+        return this;
     }
 
-    public void setLocation(String location) {
+    public CalculatorPage setLocation(String location) {
         driver.findElement(LOCATION_DROPDOWN).click();
         selectFromDropdownList(LOCATIONS_LIST, location);
+        return this;
     }
 
     public void selectFromDropdownList(By dropdownList, String dropdownElementName) {
@@ -68,8 +76,9 @@ public class CalculatorPage {
                 .ifPresent(WebElement::click);
     }
 
-    public void clickOnCommitedUsage() {
+    public CalculatorPage clickOnCommitedUsage() {
         driver.findElement(COMMITED_USAGE).click();
+        return this;
     }
 
     public String getEstimatedCost() {

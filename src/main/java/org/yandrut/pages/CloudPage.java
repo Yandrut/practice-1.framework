@@ -3,10 +3,8 @@ package org.yandrut.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import java.util.stream.Collectors;
 
-
-public class CloudPage {
+public class CloudPage extends AbstractPage {
 
     private final WebDriver driver;
     private final By SEARCH_BUTTON = By.xpath("//div[@class='YSM5S']");
@@ -14,6 +12,7 @@ public class CloudPage {
     private final By SEARCH_RESULTS = By.xpath("//a[@track-type='search-result']");
 
     public CloudPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -25,22 +24,23 @@ public class CloudPage {
         element.sendKeys(keysToSend);
     }
 
-    public void clickOnTheSearchIcon() {
+    public CloudPage clickOnTheSearchIcon() {
         driver.findElement(SEARCH_BUTTON).click();
+        return this;
     }
 
-    public void sendSearchDetailsAndSubmit(String details) {
+    public CloudPage sendSearchDetailsAndSubmit(String details) {
         sendKeys(driver.findElement(SEARCH_FIELD), details);
         driver.findElement(SEARCH_FIELD).submit();
+        return this;
     }
 
     public CalculatorPage clickOnPricingCalculator() {
         driver.findElements(SEARCH_RESULTS)
                 .stream()
                 .filter((element) -> element.getText().equals("Google Cloud Pricing Calculator"))
-                .collect(Collectors.toList())
-                .get(0)
-                .click();
+                .findAny()
+                .ifPresent(WebElement::click);
         return new CalculatorPage(driver);
     }
 }

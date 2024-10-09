@@ -2,7 +2,7 @@ package org.yandrut;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import selenium.DriverProvider;
+import org.yandrut.selenium.DriverProvider;
 import org.openqa.selenium.WebDriver;
 
 public class BaseTest {

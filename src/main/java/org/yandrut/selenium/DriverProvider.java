@@ -1,4 +1,4 @@
-package selenium;
+package org.yandrut.selenium;
 
 import org.openqa.selenium.WebDriver;
 import java.util.Objects;
@@ -10,7 +10,7 @@ public class DriverProvider {
 
     public static WebDriver getInstance() {
         if (Objects.isNull(driver)) {
-            driver = DriverFactory.getDriver("chrome");
+            driver = DriverFactory.getDriver();
         }
         return driver;
     }

@@ -1,4 +1,4 @@
-package org.yandrut.Utils;
+package org.yandrut.utils;
 
 import org.yandrut.pages.EmailGeneratorPage;
 

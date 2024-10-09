@@ -2,11 +2,12 @@ package org.yandrut.pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class EmailGeneratorPage {
+public class EmailGeneratorPage extends AbstractPage {
     private final WebDriver driver;
     String generatedEmail;
 
     public EmailGeneratorPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

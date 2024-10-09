@@ -6,10 +6,10 @@ public class FormModel {
     private final String GpuType = "NVIDIA Tesla V100";
     private final String localSSD = "2x375 Gb";
     private final String dataCenterLocation = "Frankfurt (europe-west3)";
-    private String estimatedCost;
+    private int estimatedCost;
 
     public FormModel() {
-        estimatedCost = "0";
+        estimatedCost = 0;
     }
 
     public int getNumberOfInstances() {
@@ -32,7 +32,7 @@ public class FormModel {
         return dataCenterLocation;
     }
 
-    public void setEstimatedCost(String cost) {
+    public void setEstimatedCost(int cost) {
         this.estimatedCost = cost;
     }
 }

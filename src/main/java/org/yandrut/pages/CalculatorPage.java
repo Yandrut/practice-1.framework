@@ -1,31 +1,31 @@
 package org.yandrut.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.yandrut.models.FormModel;
-
-import java.util.stream.Collectors;
+import org.openqa.selenium.*;
 
 public class CalculatorPage {
     private final WebDriver driver;
 
     private final By ADD_TO_ESTIMATE = By.xpath("//button[@data-idom-class='xhASFc']");
-    private final By COMPUTE_ENGINE = By.linkText("Compute Engine");
-    private final By NUMBER_OF_INSTANCES = By.xpath("//input[@id='i6']");
+    private final By COMPUTE_ENGINE = By.xpath("//div[@data-service-form='8']");
+    private final By NUMBER_OF_INSTANCES = By.xpath("//input[@max='50000']");
     private final By ADD_GPU = By.xpath("//button[@aria-label='Add GPUs']");
-    private final By GPU_MODEL_DROPDOWN = By.className("VfPpkd-TkwUic");
-    private final By GPU_NUMBER_LIST = By.xpath("//*[contains(text(), 'NVIDIA')]");
-    private final By LOCAL_SSD_DROPDOWN = By.xpath("//*[text()='Local SSD']");
-    private final By LOCAL_SSD_LIST = By.xpath("//*[contains(text(), '375 GB')]");
-    private final By LOCATION_DROPDOWN = By.className("VfPpkd-aPP78e");
-    private final By LOCATIONS_LIST = By.xpath("//*[contains(text(), 'europe')]");
-    private final By COMMITED_USAGE = By.id("1161-year");
-    private final By MACHINE_TYPE = By.className("VfPpkd-aPP78e");
-    private final By MACHINE_TYPES_LIST = By.xpath("//*[contains(text(), 'n1-standard')]");
-    private final By ESTIMATED_PRICE = By.xpath("//*[@class='wFCpDb ']//label");
+    private final By GPU_MODEL_DROPDOWN = By.xpath("//div[@data-field-input-type='2' and @data-field-type='158']");
+    private final By GPU_NUMBER_LIST = By.xpath("    //*[@id=\"ow8\"]/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/div[27]/div/div[1]/div/div/div/div[2]");
+    private final By LOCAL_SSD_DROPDOWN = By.xpath("//ul[@aria-label='Local SSD']/../..");
+    private final By LOCAL_SSD_LIST = By.xpath("//ul[@aria-label='Local SSD']/li");
+    private final By LOCATION_DROPDOWN = By.xpath("//ul[@aria-label='Region']/../..");
+    private final By LOCATIONS_LIST = By.xpath("//ul[@aria-label='Region']/li");
+    private final By COMMITED_USAGE = By.xpath("//label[text()='1 year']/..");
+    private final By MACHINE_TYPE = By.xpath("//*[@id=\"ucj-1\"]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/div[11]/div/div/div[2]/div/div[1]/div[3]/div/div/div/div[1]");
+    private final By MACHINE_TYPES_LIST = By.xpath("//ul[@aria-label='Machine type']/li");
+    private final By ESTIMATED_PRICE = By.xpath("//div[text()='Estimated cost']/following::label");
 
     public CalculatorPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void navigateToUrl(String url) {
+        driver.get(url);
     }
 
     public void clickOnComputeEngine() {
@@ -33,18 +33,10 @@ public class CalculatorPage {
         driver.findElement(COMPUTE_ENGINE).click();
     }
 
-    public void fillOutTheForm(FormModel form) {
-        setNumberOfInstances(form.getNumberOfInstances());
-        setMachineType(form.getMachineType());
-        addGpuModel(form.getGpuModel());
-        setLocalSSD(form.getLocalSSD());
-        setLocation(form.getDataCenterLocation());
-        clickOnCommitedUsage();
-        form.setEstimatedCost(getEstimatedCost());
-    }
-
     public void setNumberOfInstances(int numberOfInstances) {
-        driver.findElement(NUMBER_OF_INSTANCES).sendKeys(String.valueOf(numberOfInstances));
+        WebElement inputField = driver.findElement(NUMBER_OF_INSTANCES);
+        inputField.clear();
+        inputField.sendKeys(String.valueOf(numberOfInstances));
     }
 
     public void setMachineType(String machineType) {
@@ -71,10 +63,9 @@ public class CalculatorPage {
     public void selectFromDropdownList(By dropdownList, String dropdownElementName) {
         driver.findElements(dropdownList)
                 .stream()
-                .filter((element -> element.getText().equals(dropdownElementName)))
-                .collect(Collectors.toList())
-                .get(0)
-                .click();
+                .filter((e) -> e.getText().equals(dropdownElementName))
+                .findAny()
+                .ifPresent(WebElement::click);
     }
 
     public void clickOnCommitedUsage() {

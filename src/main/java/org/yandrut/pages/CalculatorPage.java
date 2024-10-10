@@ -1,9 +1,12 @@
 package org.yandrut.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 
 public class CalculatorPage extends AbstractPage {
     private final WebDriver driver;
+    private static final Logger log = LogManager.getLogger(CalculatorPage.class);
 
     private final By ADD_TO_ESTIMATE = By.xpath("//button[@data-idom-class='xhASFc']");
     private final By COMPUTE_ENGINE = By.xpath("//div[@data-service-form='8']");
@@ -27,6 +30,7 @@ public class CalculatorPage extends AbstractPage {
 
     public CalculatorPage navigateToUrl(String url) {
         driver.get(url);
+        log.info("Moving to URL: {}", url);
         return this;
     }
 
@@ -40,12 +44,14 @@ public class CalculatorPage extends AbstractPage {
         WebElement inputField = driver.findElement(NUMBER_OF_INSTANCES);
         inputField.clear();
         inputField.sendKeys(numberOfInstances);
+        log.info("Number of instances is{}", numberOfInstances);
         return this;
     }
 
     public CalculatorPage setMachineType(String machineType) {
         driver.findElement(MACHINE_TYPE).click();
         selectFromDropdownList(MACHINE_TYPES_LIST, machineType);
+        log.info("Machine type is{}", machineType);
         return this;
     }
 
@@ -53,18 +59,21 @@ public class CalculatorPage extends AbstractPage {
         driver.findElement(ADD_GPU).click();
         driver.findElement(GPU_MODEL_DROPDOWN).click();
         selectFromDropdownList(GPU_NUMBER_LIST, gpuModel);
+        log.info("GPU model is{}", gpuModel);
         return this;
     }
 
     public CalculatorPage setLocalSSD(String ssdName) {
         driver.findElement(LOCAL_SSD_DROPDOWN).click();
         selectFromDropdownList(LOCAL_SSD_LIST, ssdName);
+        log.info("Local SSD is {}", ssdName);
         return this;
     }
 
     public CalculatorPage setLocation(String location) {
         driver.findElement(LOCATION_DROPDOWN).click();
         selectFromDropdownList(LOCATIONS_LIST, location);
+        log.info("{} location selected", location);
         return this;
     }
 

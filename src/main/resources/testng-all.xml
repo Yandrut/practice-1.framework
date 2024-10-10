@@ -6,8 +6,8 @@
         <classes>
             <class name="org.yandrut.SmokeTests">
                 <methods>
-                    <include name=""/>
-                    <include name=""/>
+                    <include name="redirectsToCalculatorPage"/>
+                    <include name="priceIsGettingEstimated"/>
                 </methods>
             </class>
         </classes>

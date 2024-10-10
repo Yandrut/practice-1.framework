@@ -21,7 +21,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult testResult) {
         saveScreenshot();
-        log.info("Screenshot saved");
+        log.info("Screenshot taken");
     }
 
     public void saveScreenshot() {

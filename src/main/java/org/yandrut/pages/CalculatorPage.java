@@ -37,6 +37,7 @@ public class CalculatorPage extends AbstractPage {
     public CalculatorPage clickOnComputeEngine() {
         driver.findElement(ADD_TO_ESTIMATE).click();
         driver.findElement(COMPUTE_ENGINE).click();
+        log.info("Clicked on compute engine");
         return this;
     }
 
@@ -44,14 +45,14 @@ public class CalculatorPage extends AbstractPage {
         WebElement inputField = driver.findElement(NUMBER_OF_INSTANCES);
         inputField.clear();
         inputField.sendKeys(numberOfInstances);
-        log.info("Number of instances is{}", numberOfInstances);
+        log.info("Number of instances is {}", numberOfInstances);
         return this;
     }
 
     public CalculatorPage setMachineType(String machineType) {
         driver.findElement(MACHINE_TYPE).click();
         selectFromDropdownList(MACHINE_TYPES_LIST, machineType);
-        log.info("Machine type is{}", machineType);
+        log.info("Machine type is {}", machineType);
         return this;
     }
 
@@ -59,7 +60,7 @@ public class CalculatorPage extends AbstractPage {
         driver.findElement(ADD_GPU).click();
         driver.findElement(GPU_MODEL_DROPDOWN).click();
         selectFromDropdownList(GPU_NUMBER_LIST, gpuModel);
-        log.info("GPU model is{}", gpuModel);
+        log.info("GPU model is {}", gpuModel);
         return this;
     }
 
@@ -83,14 +84,16 @@ public class CalculatorPage extends AbstractPage {
                 .filter((e) -> e.getText().equals(dropdownElementName))
                 .findAny()
                 .ifPresent(WebElement::click);
+        log.info("{} option selected", dropdownElementName);
     }
 
-    public CalculatorPage clickOnCommitedUsage() {
+    public void clickOnCommitedUsage() {
         driver.findElement(COMMITED_USAGE).click();
-        return this;
     }
 
     public String getEstimatedCost() {
-        return driver.findElement(ESTIMATED_PRICE).getText();
+        String estimatedPrice = driver.findElement(ESTIMATED_PRICE).getText();
+        log.info("Estimated price is {}", estimatedPrice);
+        return estimatedPrice;
     }
 }

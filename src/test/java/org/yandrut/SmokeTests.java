@@ -1,6 +1,7 @@
 package org.yandrut;
 
 import org.testng.annotations.Test;
+import org.yandrut.config.ConfigFactory;
 import org.yandrut.models.Form;
 import org.yandrut.pages.CalculatorPage;
 import org.yandrut.pages.CloudPage;
@@ -44,5 +45,9 @@ public class SmokeTests extends BaseTest {
 
         String actual = calculator.getEstimatedCost();
         assertEquals(EXPECTED_PRICE, actual);
+    }
+
+    public void does() {
+        ConfigFactory.getConfig().browser();
     }
 }

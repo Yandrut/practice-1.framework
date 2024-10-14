@@ -10,7 +10,7 @@ public class DriverProvider {
 
     public static WebDriver getInstance() {
         if (Objects.isNull(driver)) {
-            driver = DriverFactory.getDriver();
+            driver = LocalDriverFactory.getDriver();
         }
         return driver;
     }

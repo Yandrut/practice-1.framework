@@ -2,20 +2,30 @@ package org.yandrut.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class CloudPage extends AbstractPage {
 
     private final WebDriver driver;
-    private final By SEARCH_BUTTON = By.xpath("//div[@class='YSM5S']");
-    private final By SEARCH_FIELD = By.xpath("//input[@type='text']");
-    private final By SEARCH_RESULTS = By.xpath("//a[@track-type='search-result']");
+
+    @FindBy(xpath = "//div[@class='YSM5S']")
+    private WebElement searchButton;
+
+    @FindBy(xpath = "//input[@type='text']")
+    private WebElement searchField;
+
+    @FindBy(xpath = "//a[@track-type='search-result']")
+    private List<WebElement> searchResults;
     private static final Logger log = LogManager.getLogger(CloudPage.class);
 
     public CloudPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
@@ -36,22 +46,21 @@ public class CloudPage extends AbstractPage {
     }
 
     public CloudPage clickOnTheSearchIcon() {
-        driver.findElement(SEARCH_BUTTON).click();
+        searchButton.click();
         return this;
     }
 
     public CloudPage sendSearchDetailsAndSubmit(String details) {
         log.info("Search prompt is: {}", details);
-        sendKeys(driver.findElement(SEARCH_FIELD), details);
-        driver.findElement(SEARCH_FIELD).submit();
+        sendKeys(searchField, details);
+        searchField.submit();
         return this;
     }
 
     public CalculatorPage clickOnPricingCalculator() {
         final String prompt = "Google Cloud Pricing Calculator";
 
-        driver.findElements(SEARCH_RESULTS)
-                .stream()
+        searchResults.stream()
                 .filter((element) -> element.getText().equals(prompt))
                 .findAny()
                 .ifPresent(WebElement::click);

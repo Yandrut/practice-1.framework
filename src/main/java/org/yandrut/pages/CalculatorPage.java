@@ -59,14 +59,14 @@ public class CalculatorPage extends AbstractPage {
         return this;
     }
 
-    public CalculatorPage setNumberOfInstancesInput(String numberOfInstances) {
+    public CalculatorPage setNumberOfInstances(String numberOfInstances) {
         numberOfInstancesInput.clear();
         numberOfInstancesInput.sendKeys(numberOfInstances);
         log.info("Number of instances is {}", numberOfInstances);
         return this;
     }
 
-    public CalculatorPage setMachineTypeList(String machineType) {
+    public CalculatorPage setMachineType(String machineType) {
         machineTypeDropdown.click();
         selectFromDropdownList(machineTypesList, machineType);
         log.info("Machine type is {}", machineType);

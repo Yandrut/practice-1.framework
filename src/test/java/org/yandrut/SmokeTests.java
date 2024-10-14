@@ -1,7 +1,6 @@
 package org.yandrut;
 
 import org.testng.annotations.Test;
-import org.yandrut.config.ConfigFactory;
 import org.yandrut.models.Form;
 import org.yandrut.pages.CalculatorPage;
 import org.yandrut.pages.CloudPage;
@@ -9,8 +8,7 @@ import org.yandrut.selenium.DriverProvider;
 import org.yandrut.service.FormInitializer;
 import static org.testng.AssertJUnit.assertEquals;
 
-
-public class SmokeTests extends BaseTest {
+public class SmokeTests {
     public static final String SEARCH_PROMPT = "Google Cloud Pricing Calculator";
     public static final String CLOUD_URL = "https://cloud.google.com";
     public static final String CALCULATOR_URL = "https://cloud.google.com/products/calculator";
@@ -36,6 +34,7 @@ public class SmokeTests extends BaseTest {
 
         calculator.navigateToUrl(CALCULATOR_URL)
                 .clickOnComputeEngine()
+                .fillOutTheForm()
                 .setNumberOfInstances(form.getNumberOfInstances())
                 .setMachineType(form.getMachineType())
                 .addGpuModel(form.getGpuModel())
@@ -47,7 +46,4 @@ public class SmokeTests extends BaseTest {
         assertEquals(EXPECTED_PRICE, actual);
     }
 
-    public void does() {
-        ConfigFactory.getConfig().browser();
-    }
 }

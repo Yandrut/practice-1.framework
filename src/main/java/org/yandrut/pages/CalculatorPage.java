@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.yandrut.utils.TestListener;
 
 public class CalculatorPage extends AbstractPage {
     private final WebDriver driver;
@@ -42,7 +43,8 @@ public class CalculatorPage extends AbstractPage {
 
     public String getEstimatedCost() {
         String priceText = estimatedCost.getText();
-        log.info("Estimated price is {}", estimatedCost);
+        log.info("Actual price is {}", priceText);
+        new TestListener().saveScreenshot();
         return priceText;
     }
 }

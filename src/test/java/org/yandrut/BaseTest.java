@@ -17,7 +17,7 @@ public class BaseTest {
         WebDriver driver = DriverProvider.getInstance();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     @Description("Closing browser instance")
     public void quitBrowser() {
         DriverProvider.quit();

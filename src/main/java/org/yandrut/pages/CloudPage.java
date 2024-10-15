@@ -35,11 +35,6 @@ public class CloudPage extends AbstractPage {
         return this;
     }
 
-    public String getPageName() {
-        return driver.getTitle();
-    }
-
-
     public void sendKeys(WebElement element, String keysToSend) {
         log.info("Send character sequence: {}", keysToSend);
         element.sendKeys(keysToSend);
@@ -57,8 +52,7 @@ public class CloudPage extends AbstractPage {
         return this;
     }
 
-    public CalculatorPage clickOnPricingCalculator() {
-        final String prompt = "Google Cloud Pricing Calculator";
+    public CalculatorPage clickOnProvidedResult(String prompt) {
 
         searchResults.stream()
                 .filter((element) -> element.getText().equals(prompt))

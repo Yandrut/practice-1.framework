@@ -6,26 +6,25 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.yandrut.utils.TestListener;
-
 import java.util.List;
-
+import static org.yandrut.selenium.DriverWaiter.*;
 public class CalculatorPage extends AbstractPage {
 
-    @FindBy(xpath = "//span[text()='Add to estimate']")
+    @FindBy(xpath = "//button[@data-idom-class='xhASFc']")
     private WebElement addToEstimate;
-    @FindBy(xpath = "//h2[text()='Compute Engine']/..")
+    @FindBy(xpath = "//div[@role='button' and @data-idx='0']")
     private WebElement computeEngine;
 
-    @FindBy(xpath = "//div[@data-field-input-type='2' and @data-field-type='158']" )
+    @FindBy(xpath = "//ul[@aria-label='GPU Model']/../..")
     private WebElement gpuModelDropdown;
-    @FindBy(xpath = "//ul[@aria-label='Region']/../../../../../..")
+    @FindBy(xpath = "//ul[@aria-label='Region']/..")
     private WebElement locationDropdown;
-    @FindBy(xpath = "//ul[@aria-label='Local SSD']/../../../../..")
+    @FindBy(xpath = "//ul[@aria-label='Local SSD']/..")
     private WebElement localSsdDropdown;
-    @FindBy(xpath = "//ul[@aria-label='Machine type']/../../..")
+    @FindBy(xpath = "//ul[@aria-label='Machine type']/../..")
     private WebElement machineTypeDropdown;
 
-    @FindBy(xpath = "//ul[@aria-label='GPU Model']")
+    @FindBy(xpath = "//ul[@aria-label='GPU Model']/li")
     private List<WebElement> gpuModelList;
     @FindBy(xpath = "//ul[@aria-label='Local SSD']/li")
     private List<WebElement> localSsdList;
@@ -34,7 +33,7 @@ public class CalculatorPage extends AbstractPage {
     @FindBy(xpath = "//ul[@aria-label='Machine type']/li")
     private List<WebElement> machineTypesList;
 
-    @FindBy(xpath = "//input[@max='50000']")
+    @FindBy(xpath = "//input[@value='1']")
     private WebElement numberOfInstancesInput;
     @FindBy(xpath = "//button[@aria-label='Add GPUs']")
     private WebElement addGpu;
@@ -76,8 +75,14 @@ public class CalculatorPage extends AbstractPage {
         return this;
     }
 
+    public String getPageName() {
+        return driver.getTitle();
+    }
+
     public CalculatorPage clickOnComputeEngine() {
+        waitForElementToBeVisible(addToEstimate);
         addToEstimate.click();
+        waitForElementToBeVisible(addToEstimate);
         computeEngine.click();
         log.info("Clicked on compute engine");
         return this;
@@ -93,7 +98,7 @@ public class CalculatorPage extends AbstractPage {
     public CalculatorPage setMachineType(String machineType) {
         machineTypeDropdown.click();
         selectFromDropdownList(machineTypesList, machineType);
-        log.info("Actual machine type is: {} \n Expected type: {}", machineTypeText.getText(), machineType);
+        log.info("Actual machine type is: {}\n Expected type: {}", machineTypeText.getText(), machineType);
         return this;
     }
 
@@ -101,26 +106,27 @@ public class CalculatorPage extends AbstractPage {
         addGpu.click();
         gpuModelDropdown.click();
         selectFromDropdownList(gpuModelList, gpuModel);
-        log.info("Actual GPU model is: {} \n Expected model: {}", gpuModelText.getText(), gpuModel);
+        log.info("Actual GPU model is: {}\n Expected model: {}", gpuModelText.getText(), gpuModel);
         return this;
     }
 
     public CalculatorPage setLocalSSD(String ssdName) {
         localSsdDropdown.click();
         selectFromDropdownList(localSsdList, ssdName);
-        log.info("Actual local SSD is: {} \n Expected is: {}", localSSDText.getText(), ssdName);
+        log.info("Actual local SSD is: {}\n Expected is: {}", localSSDText.getText(), ssdName);
         return this;
     }
 
     public CalculatorPage setLocation(String location) {
         locationDropdown.click();
         selectFromDropdownList(locationsList, location);
-        log.info("Actual location: {} \n Expected is: {}", regionTextLocator.getText(), location);
+        log.info("Actual location: {}\n Expected is: {}", regionTextLocator.getText(), location);
         return this;
     }
 
-    public void clickOnCommitedUsage() {
+    public CalculatorPage clickOnCommitedUsage() {
         commitedUsage.click();
+        return this;
     }
 
     public String getEstimatedCost() {

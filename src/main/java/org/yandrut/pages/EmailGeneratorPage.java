@@ -1,9 +1,11 @@
 package org.yandrut.pages;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 
 public class EmailGeneratorPage extends AbstractPage {
     private final WebDriver driver;
+    @Getter
     String generatedEmail;
 
     public EmailGeneratorPage(WebDriver driver) {
@@ -12,10 +14,6 @@ public class EmailGeneratorPage extends AbstractPage {
     }
 
     public void generateEmail() {}
-
-    public String getGeneratedEmail() {
-        return generatedEmail;
-    }
 
     public CalculatorPage returnToCalculator() {
         return new CalculatorPage(driver);

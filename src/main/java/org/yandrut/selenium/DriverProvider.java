@@ -1,6 +1,9 @@
 package org.yandrut.selenium;
 
 import org.openqa.selenium.WebDriver;
+import org.yandrut.config.ConfigFactory;
+
+import java.time.Duration;
 import java.util.Objects;
 
 public class DriverProvider {
@@ -10,8 +13,9 @@ public class DriverProvider {
 
     public static WebDriver getInstance() {
         if (Objects.isNull(driver)) {
-            driver = LocalDriverFactory.getDriver();
+            driver = LocalDriverFactory.getDriver(ConfigFactory.getConfig().browser());
         }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
 
@@ -20,5 +24,12 @@ public class DriverProvider {
             driver.quit();
             driver = null;
         }
+    }
+
+    public static WebDriver getMobileDriver() {
+        if (Objects.isNull(driver)) {
+            driver = MobileDriverFactory.getDriver(ConfigFactory.getConfig().platformType());
+        }
+        return driver;
     }
 }

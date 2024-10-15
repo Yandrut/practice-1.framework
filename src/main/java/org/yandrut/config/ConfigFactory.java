@@ -9,6 +9,5 @@ public final class ConfigFactory {
 
     public static ConfigureFramework getConfig() {
         return ConfigCache.getOrCreate(ConfigureFramework.class);
-
     }
 }

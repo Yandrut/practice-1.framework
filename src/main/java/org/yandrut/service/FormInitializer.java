@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yandrut.models.Form;
 
-import java.util.Locale;
-
 public class FormInitializer {
     private static final String NUMBER_OF_INSTANCES = "data.form.NUMBER_OF_INSTANCES";
     private static final String MACHINE_TYPE = "data.form.MACHINE_TYPE";

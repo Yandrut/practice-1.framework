@@ -23,6 +23,8 @@
     <junit.version>3.8.1</junit.version>
     <selenium.version>4.14.1</selenium.version>
     <allure-maven.version>2.12.0</allure-maven.version>
+    <appium.java.version>8.3.0</appium.java.version>
+    <lombok.version>1.18.20</lombok.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -86,6 +88,16 @@
       <groupId>org.aeonbits.owner</groupId>
       <artifactId>owner</artifactId>
       <version>${owner.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.appium</groupId>
+      <artifactId>java-client</artifactId>
+      <version>${appium.java.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
     </dependency>
   </dependencies>
   <build>

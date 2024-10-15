@@ -11,38 +11,37 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class SmokeTests extends BaseTest {
     public static final String SEARCH_PROMPT = DataReader.getTestData("data.provided.searchPrompt");
-    public static final String CLOUD_URL = DataReader.getTestData("data.provided.calculatorUrl");
-    public static final String CALCULATOR_URL = DataReader.getTestData("data.provided.cloudUrl");
+    public static final String CLOUD_URL = DataReader.getTestData("data.provided.cloudUrl");
+    public static final String CALCULATOR_URL = DataReader.getTestData("data.provided.calculatorUrl");
+    public static final String EXPECTED_PAGE_NAME = DataReader.getTestData("data.provided.expectedPageName");
 
     @Test
     public void redirectsToCalculatorPage() {
         CloudPage cloudPage = new CloudPage(DriverProvider.getInstance());
 
-        cloudPage.navigateToUrl(CLOUD_URL)
+        String actual = cloudPage.navigateToUrl(CLOUD_URL)
                 .clickOnTheSearchIcon()
                 .sendSearchDetailsAndSubmit(SEARCH_PROMPT)
-                .clickOnPricingCalculator();
-
-        String actual = cloudPage.getPageName();
-        assertEquals(SEARCH_PROMPT, actual);
+                .clickOnProvidedResult(SEARCH_PROMPT)
+                .getPageName();
+        assertEquals(EXPECTED_PAGE_NAME, actual);
     }
 
     @Test
     public void priceIsGettingEstimated() {
         CalculatorPage calculator = new CalculatorPage(DriverProvider.getInstance());
         Form form = FormInitializer.initializeForm();
-
-        calculator.navigateToUrl(CALCULATOR_URL)
+        String expected = form.getEstimatedCost();
+        String actual = calculator.navigateToUrl(CALCULATOR_URL)
                 .clickOnComputeEngine()
                 .setNumberOfInstances(form.getNumberOfInstances())
                 .setMachineType(form.getMachineType())
                 .addGpuModel(form.getGpuModel())
                 .setLocalSSD(form.getLocalSSD())
                 .setLocation(form.getDataCenterLocation())
-                .clickOnCommitedUsage();
+                .clickOnCommitedUsage()
+                .getEstimatedCost();
 
-        String expected = form.getEstimatedCost();
-        String actual = calculator.getEstimatedCost();
         assertEquals(expected, actual);
     }
 

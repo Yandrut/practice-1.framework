@@ -6,7 +6,7 @@ public class Form {
     private final String gpuType;
     private final String localSSD;
     private final String dataCenterLocation;
-    private String estimatedCost;
+    private final String estimatedCost;
 
     public Form(String numberOfInstances, String machineType, String gpuType, String localSSD, String dataCenterLocation, String estimatedCost) {
         this.numberOfInstances = numberOfInstances;
@@ -37,7 +37,7 @@ public class Form {
         return dataCenterLocation;
     }
 
-    public void setEstimatedCost(String cost) {
-        this.estimatedCost = cost;
+    public String getEstimatedCost() {
+        return estimatedCost;
     }
 }

@@ -5,14 +5,14 @@ import org.yandrut.models.Form;
 import org.yandrut.pages.CalculatorPage;
 import org.yandrut.pages.CloudPage;
 import org.yandrut.selenium.DriverProvider;
+import org.yandrut.service.DataReader;
 import org.yandrut.service.FormInitializer;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class SmokeTests {
-    public static final String SEARCH_PROMPT = "Google Cloud Pricing Calculator";
-    public static final String CLOUD_URL = "https://cloud.google.com";
-    public static final String CALCULATOR_URL = "https://cloud.google.com/products/calculator";
-    public static final String EXPECTED_PRICE = "$1,580.80";
+public class SmokeTests extends BaseTest {
+    public static final String SEARCH_PROMPT = DataReader.getTestData("data.provided.searchPrompt");
+    public static final String CLOUD_URL = DataReader.getTestData("data.provided.calculatorUrl");
+    public static final String CALCULATOR_URL = DataReader.getTestData("data.provided.cloudUrl");
 
     @Test
     public void redirectsToCalculatorPage() {
@@ -34,7 +34,6 @@ public class SmokeTests {
 
         calculator.navigateToUrl(CALCULATOR_URL)
                 .clickOnComputeEngine()
-                .fillOutTheForm()
                 .setNumberOfInstances(form.getNumberOfInstances())
                 .setMachineType(form.getMachineType())
                 .addGpuModel(form.getGpuModel())
@@ -42,8 +41,9 @@ public class SmokeTests {
                 .setLocation(form.getDataCenterLocation())
                 .clickOnCommitedUsage();
 
+        String expected = form.getEstimatedCost();
         String actual = calculator.getEstimatedCost();
-        assertEquals(EXPECTED_PRICE, actual);
+        assertEquals(expected, actual);
     }
 
 }

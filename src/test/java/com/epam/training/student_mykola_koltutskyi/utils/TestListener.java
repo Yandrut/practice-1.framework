@@ -2,11 +2,11 @@ package com.epam.training.student_mykola_koltutskyi.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import com.epam.training.student_mykola_koltutskyi.drivers.DriverProvider;
+import org.openqa.selenium.TakesScreenshot;import com.epam.training.student_mykola_koltutskyi.drivers.DriverProvider;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
@@ -14,20 +14,10 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TestListener implements ITestListener {
+public class TestListener implements
+        BeforeTestExecutionCallback, TestExecutionExceptionHandler {
     private static final Logger log = LogManager.getLogger(TestListener.class);
 
-    @Override
-    public void onTestFailure(ITestResult testResult) {
-        saveScreenshot();
-        log.info("Screenshot taken");
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-        var methodName = result.getMethod().getMethodName();
-        log.info("{} passed successfully", methodName);
-    }
 
     public void saveScreenshot() {
         TakesScreenshot screenshot = (TakesScreenshot) DriverProvider.getInstance();
@@ -45,5 +35,17 @@ public class TestListener implements ITestListener {
     public String getCurrentTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-dd-MM_HH-mm-ss");
         return ZonedDateTime.now().format(formatter);
+    }
+
+    @Override
+    public void beforeTestExecution(ExtensionContext extensionContext) {
+        log.info("Test running: {}", extensionContext.getDisplayName());
+    }
+
+    @Override
+    public void handleTestExecutionException(ExtensionContext extensionContext, Throwable throwable) throws Throwable {
+        saveScreenshot();
+        log.error("Test execution stopped. Test name: {}", extensionContext.getDisplayName());
+        throw throwable;
     }
 }

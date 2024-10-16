@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import com.epam.training.student_mykola_koltutskyi.utils.TestListener;
 import java.util.List;
 import static com.epam.training.student_mykola_koltutskyi.drivers.DriverWaiter.*;
 
@@ -135,7 +134,6 @@ public class CalculatorPage extends AbstractPage {
     public String getEstimatedCost() {
         var priceText = estimatedCost.getText();
         log.info("Actual price is {}", priceText);
-        TestListener.saveScreenshots();
         return priceText;
     }
 

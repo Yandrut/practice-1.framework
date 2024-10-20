@@ -1,8 +1,9 @@
 package com.epam.training.student_mykola_koltutskyi;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import com.epam.training.student_mykola_koltutskyi.utils.TestListener;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import com.epam.training.student_mykola_koltutskyi.models.Form;
 import com.epam.training.student_mykola_koltutskyi.pages.CalculatorPage;
 import com.epam.training.student_mykola_koltutskyi.pages.CloudPage;
@@ -10,8 +11,10 @@ import com.epam.training.student_mykola_koltutskyi.pages.DetailedViewPage;
 import com.epam.training.student_mykola_koltutskyi.drivers.DriverProvider;
 import com.epam.training.student_mykola_koltutskyi.service.DataReader;
 import com.epam.training.student_mykola_koltutskyi.service.FormInitializer;
-import static org.testng.AssertJUnit.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(TestListener.class)
 public class AllTest extends BaseTest {
 
     public static final String SEARCH_PROMPT = DataReader.getTestData("data.provided.searchPrompt");
@@ -20,15 +23,11 @@ public class AllTest extends BaseTest {
     public static final String EXPECTED_PAGE_NAME = DataReader.getTestData("data.provided.expectedPageName");
     public static final int TAB_INDEX = Integer.parseInt(DataReader.getTestData("data.provided.tabIndex"));
     public static final String TAB_NAME = DataReader.getTestData("data.provided.tabInfo");
-    private CalculatorPage calculator;
-    private Form form;
-    private DetailedViewPage detailedView;
-    private static final WebDriver driver = DriverProvider.getInstance();
 
 
     @Test
-    public void redirectsToCalculatorPage() {
-        CloudPage cloudPage = new CloudPage(driver);
+    void redirectsToCalculatorPage() {
+        CloudPage cloudPage = new CloudPage(DriverProvider.getInstance());
 
         var actual = cloudPage.navigateToUrl(CLOUD_URL)
                 .clickOnTheSearchIcon()
@@ -38,10 +37,10 @@ public class AllTest extends BaseTest {
         assertEquals(EXPECTED_PAGE_NAME, actual);
     }
 
-    @Test
-    public void priceIsGettingEstimated() {
-        calculator = new CalculatorPage(driver);
-        form = FormInitializer.initializeForm();
+    @Test()
+    void priceIsGettingEstimated() {
+        CalculatorPage calculator = new CalculatorPage(DriverProvider.getInstance());
+        Form form = FormInitializer.initializeForm();
 
         var expected = form.getEstimatedCost();
         var actual = calculator.navigateToUrl(CALCULATOR_URL)
@@ -55,38 +54,33 @@ public class AllTest extends BaseTest {
                 .getEstimatedCost();
 
         assertEquals(expected, actual);
-    }
 
-    @Test(dependsOnMethods = "priceIsGettingEstimated")
-    public void redirectsToDetailedView() {
-        detailedView = calculator
+        DetailedViewPage detailedView = new DetailedViewPage(DriverProvider.getInstance());
+        calculator
                 .clickOnDetailedView()
                 .moveToTheTab(TAB_INDEX, TAB_NAME);
         assertEquals(TAB_NAME, detailedView.getPageName());
-    }
 
-    @Test(dependsOnMethods = "redirectsToDetailedView")
-    public void correctDataProvided() {
-        SoftAssert softAssert = new SoftAssert();
+        SoftAssertions softAssert = new SoftAssertions();
 
         var numberOfInstancesActual = detailedView.getNumberOfInstancesText();
-        softAssert.assertEquals(form.getNumberOfInstances(), numberOfInstancesActual);
+        softAssert.assertThat(numberOfInstancesActual).isEqualTo(form.getNumberOfInstances());
 
         String machineTypeActual = detailedView.getMachineTypeText();
         var expectedType = form.getMachineType();
-        softAssert.assertTrue(machineTypeActual.contains(expectedType));
+        softAssert.assertThat(machineTypeActual).contains(expectedType);
 
         var addedGPUsActual = detailedView.getGpusBoolean();
-        softAssert.assertTrue(addedGPUsActual);
+        softAssert.assertThat(addedGPUsActual).isTrue();
 
         var gpuModelActual = detailedView.getGpuModelText();
-        softAssert.assertEquals(form.getGpuModel(), gpuModelActual);
+        softAssert.assertThat(form.getGpuModel()).isEqualTo(gpuModelActual);
 
         String localSsdActual = detailedView.getLocalSsdText();
-        softAssert.assertEquals(form.getLocalSSD(), localSsdActual);
+        softAssert.assertThat(form.getLocalSSD()).isEqualTo(localSsdActual);
 
         var locationActual = detailedView.getRegionText();
-        softAssert.assertEquals(form.getDataCenterLocation(), locationActual);
+        softAssert.assertThat(form.getDataCenterLocation()).isEqualTo(locationActual);
 
         softAssert.assertAll();
     }

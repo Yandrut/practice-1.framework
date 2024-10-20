@@ -34,7 +34,7 @@ public class DetailedViewPage extends AbstractPage {
     private static final Logger log = LogManager.getLogger(DetailedViewPage.class);
 
 
-    protected DetailedViewPage(WebDriver driver) {
+    public DetailedViewPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.driver = driver;

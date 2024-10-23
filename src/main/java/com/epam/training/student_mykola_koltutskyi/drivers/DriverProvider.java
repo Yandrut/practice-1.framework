@@ -1,35 +1,39 @@
 package com.epam.training.student_mykola_koltutskyi.drivers;
 
+import com.epam.training.student_mykola_koltutskyi.enums.BrowserType;
 import org.openqa.selenium.WebDriver;
 import com.epam.training.student_mykola_koltutskyi.config.ConfigFactory;
 
-import java.time.Duration;
 import java.util.Objects;
 
-public class DriverProvider {
-    private static WebDriver driver;
+public final class DriverProvider {
+    private static final ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
 
     private DriverProvider() {}
 
-    public static WebDriver getInstance() {
-        if (Objects.isNull(driver)) {
-            driver = LocalDriverFactory.getDriver(ConfigFactory.getConfig().browser());
+    public static void initializeDriver() {
+        if (Objects.isNull(getDriver())) {
+            BrowserType browser = ConfigFactory.getConfig().browser();
+            setDriver(DriverFactory.getDriver(browser));
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        return driver;
+    }
+
+    public static WebDriver getDriver() {
+        return threadLocalDriver.get();
+    }
+
+    public static void setDriver(WebDriver driver) {
+        threadLocalDriver.set(driver);
+    }
+
+    public static void remove() {
+        threadLocalDriver.remove();
     }
 
     public static void quit() {
-        if (Objects.nonNull(driver)) {
-            driver.quit();
-            driver = null;
+        if (Objects.nonNull(getDriver())) {
+            getDriver().quit();
+            remove();
         }
-    }
-
-    public static WebDriver getMobileDriver() {
-        if (Objects.isNull(driver)) {
-            driver = MobileDriverFactory.getDriver(ConfigFactory.getConfig().platformType());
-        }
-        return driver;
     }
 }

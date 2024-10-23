@@ -12,7 +12,8 @@ public class BaseTest {
 
     @BeforeEach
     void openBrowser() {
-        WebDriver driver = DriverProvider.getInstance();
+        DriverProvider.initializeDriver();
+        WebDriver driver = DriverProvider.getDriver();
     }
 
     @AfterEach

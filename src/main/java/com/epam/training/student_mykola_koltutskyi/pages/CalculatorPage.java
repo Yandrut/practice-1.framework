@@ -43,8 +43,7 @@ public class CalculatorPage extends AbstractPage {
     private WebElement estimatedCost;
     @FindBy(xpath = "//a[@aria-label='Open detailed view']")
     private WebElement openDetailedView;
-    @FindBy(xpath = "//button[@aria-label='Download .csv']")
-    private WebElement downloadButton;
+
 
     private final String suffixForTextLocators = "/../..//div/span/following-sibling::span/span";
     private final String machineTextSelectorString = "//ul[@aria-label='Machine type']" + suffixForTextLocators;
@@ -106,7 +105,7 @@ public class CalculatorPage extends AbstractPage {
 
     public CalculatorPage addGpuModel(String gpuModel) {
         addGpu.click();
-        gpuModelDropdown.click();
+        waitForElementToBeClickable(gpuModelDropdown).click();
         selectFromDropdownList(gpuModelList, gpuModel);
         log.info("Actual GPU model is: {}\n Expected model: {}", gpuModelText.getText(), gpuModel);
         return this;

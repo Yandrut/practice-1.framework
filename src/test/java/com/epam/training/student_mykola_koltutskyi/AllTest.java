@@ -27,7 +27,7 @@ public class AllTest extends BaseTest {
 
     @Test
     void redirectsToCalculatorPage() {
-        CloudPage cloudPage = new CloudPage(DriverProvider.getInstance());
+        CloudPage cloudPage = new CloudPage(DriverProvider.getDriver());
 
         var actual = cloudPage.navigateToUrl(CLOUD_URL)
                 .clickOnTheSearchIcon()
@@ -39,7 +39,7 @@ public class AllTest extends BaseTest {
 
     @Test()
     void priceIsGettingEstimated() {
-        CalculatorPage calculator = new CalculatorPage(DriverProvider.getInstance());
+        CalculatorPage calculator = new CalculatorPage(DriverProvider.getDriver());
         Form form = FormInitializer.initializeForm();
 
         var expected = form.getEstimatedCost();
@@ -55,7 +55,7 @@ public class AllTest extends BaseTest {
 
         assertEquals(expected, actual);
 
-        DetailedViewPage detailedView = new DetailedViewPage(DriverProvider.getInstance());
+        DetailedViewPage detailedView = new DetailedViewPage(DriverProvider.getDriver());
         calculator
                 .clickOnDetailedView()
                 .moveToTheTab(TAB_INDEX, TAB_NAME);

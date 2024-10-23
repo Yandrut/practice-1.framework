@@ -7,21 +7,25 @@ import java.time.Duration;
 
 public class DriverWaiter {
 
+    private static final WebDriverWait wait = new WebDriverWait(DriverProvider.getDriver(), Duration.ofSeconds(10L));
+
     public static WebElement waitForElementToBeClickable(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverProvider.getInstance(), Duration.ofSeconds(10L));
         wait.until(ExpectedConditions.elementToBeClickable(element));
         return element;
     }
 
     public static WebElement waitForElementToBeVisible(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverProvider.getInstance(), Duration.ofSeconds(10L));
         wait.until(ExpectedConditions.visibilityOf(element));
         return element;
     }
 
     public static WebElement waitForElementToBeInvisible(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverProvider.getInstance(), Duration.ofSeconds(10L));
         wait.until(ExpectedConditions.invisibilityOf(element));
         return element;
+    }
+
+    public static WebElement waitForAttributeToBe(WebElement elementLocator, String attribute, String value) {
+        wait.until(ExpectedConditions.attributeToBe(elementLocator, attribute, value));
+        return elementLocator;
     }
 }

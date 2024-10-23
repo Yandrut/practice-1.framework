@@ -20,7 +20,7 @@ public class TestListener implements
 
 
     public void saveScreenshot() {
-        TakesScreenshot screenshot = (TakesScreenshot) DriverProvider.getInstance();
+        TakesScreenshot screenshot = (TakesScreenshot) DriverProvider.getDriver();
         File screenCapture = screenshot.getScreenshotAs(OutputType.FILE);
 
         try {

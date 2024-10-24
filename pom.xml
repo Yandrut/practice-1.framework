@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>framework</name>
-  <url>http://maven.apache.org</url>
+  <url>https://maven.apache.org</url>
 
   <properties>
     <java.version>8</java.version>
@@ -43,7 +43,7 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>${juniper.version}</version>
-      <scope>test</scope>
+
     </dependency>
     <dependency>
       <groupId>org.awaitility</groupId>
@@ -106,7 +106,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.9.3</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

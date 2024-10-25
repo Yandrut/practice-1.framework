@@ -1,27 +1,26 @@
 package com.epam.training.student_mykola_koltutskyi.pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.epam.training.student_mykola_koltutskyi.elements.Button;
+import com.epam.training.student_mykola_koltutskyi.elements.ElementList;
+import com.epam.training.student_mykola_koltutskyi.elements.InputText;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
-
-public class CloudPage extends AbstractPage {
+@Slf4j
+public class CloudPage extends Page {
 
     private final WebDriver driver;
 
     @FindBy(xpath = "//div[@class='YSM5S']")
-    private WebElement searchButton;
+    private Button searchButton;
 
     @FindBy(xpath = "//input[@type='text']")
-    private WebElement searchField;
+    private InputText searchField;
 
     @FindBy(xpath = "//a[@track-type='search-result']")
-    private List<WebElement> searchResults;
-    private static final Logger log = LogManager.getLogger(CloudPage.class);
+    private ElementList searchResults;
 
     public CloudPage(WebDriver driver) {
         super(driver);
@@ -30,34 +29,25 @@ public class CloudPage extends AbstractPage {
     }
 
     public CloudPage navigateToUrl(String url) {
-        driver.get(url);
-        log.info("Moving to URL: {}", url);
+        super.navigateToUrl(url);
         return this;
     }
 
-    public void sendKeys(WebElement element, String keysToSend) {
-        log.info("Send character sequence: {}", keysToSend);
-        element.sendKeys(keysToSend);
-    }
-
     public CloudPage clickOnTheSearchIcon() {
-        searchButton.click();
+        log.info("Click on the search Icon");
+        searchButton.waitAndClick();
         return this;
     }
 
     public CloudPage sendSearchDetailsAndSubmit(String details) {
         log.info("Search prompt is: {}", details);
-        sendKeys(searchField, details);
+        searchField.sendKeys(details);
         searchField.submit();
         return this;
     }
 
     public CalculatorPage clickOnProvidedResult(String prompt) {
-        searchResults
-                .stream()
-                .filter((element) -> element.getText().equals(prompt))
-                .findAny()
-                .ifPresent(WebElement::click);
+        searchResults.selectFromList(prompt);
         log.info("Pricing calculator opened");
         return new CalculatorPage(driver);
     }

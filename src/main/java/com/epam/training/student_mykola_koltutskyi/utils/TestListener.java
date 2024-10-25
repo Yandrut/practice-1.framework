@@ -1,7 +1,7 @@
 package com.epam.training.student_mykola_koltutskyi.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
+
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
@@ -14,10 +14,8 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TestListener implements
-        BeforeTestExecutionCallback, TestExecutionExceptionHandler {
-    private static final Logger log = LogManager.getLogger(TestListener.class);
-
+@Slf4j
+public class TestListener implements BeforeTestExecutionCallback, TestExecutionExceptionHandler {
 
     public void saveScreenshot() {
         TakesScreenshot screenshot = (TakesScreenshot) DriverProvider.getDriver();
@@ -45,7 +43,7 @@ public class TestListener implements
     @Override
     public void handleTestExecutionException(ExtensionContext extensionContext, Throwable throwable) throws Throwable {
         saveScreenshot();
-        log.error("Test execution stopped. Test name: {}", extensionContext.getDisplayName());
+        log.error("Test execution stopped. Test name is: {}", extensionContext.getDisplayName());
         throw throwable;
     }
 }

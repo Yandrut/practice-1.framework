@@ -18,6 +18,13 @@ public final class DriverProvider {
         }
     }
 
+    public static void quit() {
+        if (Objects.nonNull(getDriver())) {
+            getDriver().quit();
+            remove();
+        }
+    }
+
     public static WebDriver getDriver() {
         return threadLocalDriver.get();
     }
@@ -28,12 +35,5 @@ public final class DriverProvider {
 
     public static void remove() {
         threadLocalDriver.remove();
-    }
-
-    public static void quit() {
-        if (Objects.nonNull(getDriver())) {
-            getDriver().quit();
-            remove();
-        }
     }
 }

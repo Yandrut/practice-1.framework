@@ -6,8 +6,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class DriverWaiter {
-
-    private static final WebDriverWait wait = new WebDriverWait(DriverProvider.getDriver(), Duration.ofSeconds(10L));
+    public static final Duration VISIBILITY_TIMEOUT_SECONDS = Duration.ofSeconds(10L);
+    private static final WebDriverWait wait = new WebDriverWait(DriverProvider.getDriver(), VISIBILITY_TIMEOUT_SECONDS);
 
     public static WebElement waitForElementToBeClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));

@@ -1,5 +1,6 @@
 package com.epam.training.student_mykola_koltutskyi.drivers;
 
+import com.epam.training.student_mykola_koltutskyi.drivers.manager.SafariManager;
 import org.openqa.selenium.WebDriver;
 import com.epam.training.student_mykola_koltutskyi.enums.BrowserType;
 import com.epam.training.student_mykola_koltutskyi.drivers.manager.ChromeManager;
@@ -21,6 +22,7 @@ public class DriverFactory {
         ENUM_MAP.put(BrowserType.CHROME, ChromeManager::getDriver);
         ENUM_MAP.put(BrowserType.FIREFOX, FirefoxManager::getDriver);
         ENUM_MAP.put(BrowserType.EDGE, EdgeManager::getDriver);
+        ENUM_MAP.put(BrowserType.SAFARI, SafariManager::getDriver);
     }
 
     public static WebDriver getDriver(BrowserType browserType) {

@@ -1,38 +1,33 @@
 package com.epam.training.student_mykola_koltutskyi.pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.epam.training.student_mykola_koltutskyi.elements.Label;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static com.epam.training.student_mykola_koltutskyi.drivers.DriverWaiter.waitForElementToBeVisible;
-
-public class DetailedViewPage extends AbstractPage {
+@Slf4j
+public class DetailedViewPage extends Page {
 
     private final WebDriver driver;
 
     @FindBy(xpath = "//span[contains(text(), 'n1')]")
-    private WebElement machineTypeText;
+    private Label machineTypeText;
 
     @FindBy(xpath = "//span[text()='GPU Model']/following-sibling::span")
-    private WebElement gpuModel;
+    private Label gpuModel;
 
     @FindBy(xpath = "//*[text()='Number of Instances']/following-sibling::span")
-    private WebElement numberOfInstances;
+    private Label numberOfInstances;
 
     @FindBy(xpath = "//*[text()='Add GPUs']/following-sibling::span")
-    private WebElement addGpuBoolean;
+    private Label addGpuBoolean;
 
     @FindBy(xpath = "//*[text()='Region']/following-sibling::span")
-    private WebElement regionText;
+    private Label regionText;
 
     @FindBy(xpath = "//*[text()='Local SSD']/following-sibling::span")
-    private WebElement localSsdText;
-
-    private static final Logger log = LogManager.getLogger(DetailedViewPage.class);
-
+    private Label localSsdText;
 
     public DetailedViewPage(WebDriver driver) {
         super(driver);
@@ -52,27 +47,26 @@ public class DetailedViewPage extends AbstractPage {
     }
 
     public String getMachineTypeText() {
-        return waitForElementToBeVisible(machineTypeText).getText();
+        return machineTypeText.getText();
     }
 
     public String getGpuModelText() {
-        return waitForElementToBeVisible(gpuModel).getText();
+        return gpuModel.getText();
     }
 
     public String getNumberOfInstancesText() {
-        return waitForElementToBeVisible(numberOfInstances).getText();
+        return numberOfInstances.getText();
     }
 
     public boolean getGpusBoolean() {
-        String tagText = waitForElementToBeVisible(addGpuBoolean).getText();
-        return Boolean.parseBoolean(tagText);
+        return Boolean.parseBoolean(addGpuBoolean.getText());
     }
 
     public String getRegionText() {
-        return waitForElementToBeVisible(regionText).getText();
+        return regionText.getText();
     }
 
     public String getLocalSsdText() {
-        return waitForElementToBeVisible(localSsdText).getText();
+        return localSsdText.getText();
     }
 }

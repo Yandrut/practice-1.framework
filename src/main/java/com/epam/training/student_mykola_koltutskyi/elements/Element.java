@@ -14,6 +14,10 @@ public class Element {
         return this.element.getAttribute(attribute);
     }
 
+    public String getText() {
+        return this.element.getText();
+    }
+
     public WebElement waitForElementToBeVisible() {
         DriverWaiter.waitForElementToBeVisible(this.element);
         return this.element;

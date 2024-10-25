@@ -11,7 +11,7 @@ public class Button extends Element {
         super(element);
     }
 
-    public void click() {
+    public void waitAndClick() {
         waitForElementToBeVisible(element).click();
     }
 

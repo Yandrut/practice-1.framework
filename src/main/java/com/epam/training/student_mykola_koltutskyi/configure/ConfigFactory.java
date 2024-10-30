@@ -1,4 +1,4 @@
-package com.epam.training.student_mykola_koltutskyi.config;
+package com.epam.training.student_mykola_koltutskyi.configure;
 
 import org.aeonbits.owner.ConfigCache;
 

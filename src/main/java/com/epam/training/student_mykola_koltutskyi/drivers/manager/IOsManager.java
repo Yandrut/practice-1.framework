@@ -4,8 +4,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import com.epam.training.student_mykola_koltutskyi.config.ConfigFactory;
+import org.openqa.selenium.remote.DesiredCapabilities;import com.epam.training.student_mykola_koltutskyi.configure.ConfigFactory;
 
 public final class IOsManager {
 

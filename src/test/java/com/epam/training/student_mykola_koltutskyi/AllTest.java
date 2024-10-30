@@ -4,7 +4,6 @@ import com.epam.training.student_mykola_koltutskyi.utils.TestListener;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import com.epam.training.student_mykola_koltutskyi.models.Form;
 import com.epam.training.student_mykola_koltutskyi.pages.CalculatorPage;
 import com.epam.training.student_mykola_koltutskyi.pages.CloudPage;
 import com.epam.training.student_mykola_koltutskyi.pages.DetailedViewPage;
@@ -27,7 +26,7 @@ public class AllTest extends BaseTest {
 
     @Test
     void redirectsToCalculatorPage() {
-        CloudPage cloudPage = new CloudPage(DriverProvider.getDriver());
+        var cloudPage = new CloudPage(DriverProvider.getDriver());
 
         var actual = cloudPage.navigateToUrl(CLOUD_URL)
                 .clickOnTheSearchIcon()
@@ -39,8 +38,8 @@ public class AllTest extends BaseTest {
 
     @Test()
     void priceIsGettingEstimated() {
-        CalculatorPage calculator = new CalculatorPage(DriverProvider.getDriver());
-        Form form = FormInitializer.initializeForm();
+        var calculator = new CalculatorPage(DriverProvider.getDriver());
+        var form = FormInitializer.initializeForm();
 
         var expected = form.getEstimatedCost();
         var actual = calculator.navigateToUrl(CALCULATOR_URL)
@@ -55,18 +54,18 @@ public class AllTest extends BaseTest {
 
         assertEquals(expected, actual);
 
-        DetailedViewPage detailedView = new DetailedViewPage(DriverProvider.getDriver());
+        var detailedView = new DetailedViewPage(DriverProvider.getDriver());
         calculator
                 .clickOnDetailedView()
                 .moveToTheTab(TAB_INDEX, TAB_NAME);
         assertEquals(TAB_NAME, detailedView.getPageName());
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
 
         var numberOfInstancesActual = detailedView.getNumberOfInstancesText();
         softAssert.assertThat(numberOfInstancesActual).isEqualTo(form.getNumberOfInstances());
 
-        String machineTypeActual = detailedView.getMachineTypeText();
+        var machineTypeActual = detailedView.getMachineTypeText();
         var expectedType = form.getMachineType();
         softAssert.assertThat(machineTypeActual).contains(expectedType);
 
@@ -76,7 +75,7 @@ public class AllTest extends BaseTest {
         var gpuModelActual = detailedView.getGpuModelText();
         softAssert.assertThat(form.getGpuModel()).isEqualTo(gpuModelActual);
 
-        String localSsdActual = detailedView.getLocalSsdText();
+        var localSsdActual = detailedView.getLocalSsdText();
         softAssert.assertThat(form.getLocalSSD()).isEqualTo(localSsdActual);
 
         var locationActual = detailedView.getRegionText();

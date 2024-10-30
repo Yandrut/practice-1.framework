@@ -1,4 +1,4 @@
-package com.epam.training.student_mykola_koltutskyi.config;
+package com.epam.training.student_mykola_koltutskyi.configure;
 
 import org.aeonbits.owner.Config;
 import com.epam.training.student_mykola_koltutskyi.converters.StringToBrowserType;

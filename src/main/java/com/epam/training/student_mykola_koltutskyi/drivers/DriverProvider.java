@@ -2,7 +2,7 @@ package com.epam.training.student_mykola_koltutskyi.drivers;
 
 import com.epam.training.student_mykola_koltutskyi.enums.BrowserType;
 import org.openqa.selenium.WebDriver;
-import com.epam.training.student_mykola_koltutskyi.config.ConfigFactory;
+import com.epam.training.student_mykola_koltutskyi.configure.ConfigFactory;
 
 import java.util.Objects;
 

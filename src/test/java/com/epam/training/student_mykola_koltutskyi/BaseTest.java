@@ -5,7 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import com.epam.training.student_mykola_koltutskyi.drivers.DriverProvider;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.WebDriver;
 
 @ExtendWith(TestListener.class)
 public class BaseTest {
@@ -13,7 +12,7 @@ public class BaseTest {
     @BeforeEach
     void openBrowser() {
         DriverProvider.initializeDriver();
-        WebDriver driver = DriverProvider.getDriver();
+        var driver = DriverProvider.getDriver();
     }
 
     @AfterEach

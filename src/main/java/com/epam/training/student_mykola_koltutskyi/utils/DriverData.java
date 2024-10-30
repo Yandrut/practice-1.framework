@@ -1,4 +1,4 @@
-package com.epam.training.student_mykola_koltutskyi.service;
+package com.epam.training.student_mykola_koltutskyi.utils;
 
 import lombok.Builder;
 import lombok.Getter;
